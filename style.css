@@ -1,0 +1,79 @@
+body{
+    background: black;
+}
+/* Type-Writer */
+      #main {
+        height: 40px;
+        white-space: nowrap;
+        overflow: hidden;
+        font-family: 'Source Code Pro', monospace;
+        font-size: 28px;
+        color: rgba(255, 255, 255, .70);
+        position: relative;
+        margin: 20% 30%;
+      }
+      #border {
+        border-bottom: solid 3px rgba(0, 255, 0, .75);
+        position: absolute;
+        right: -7px;
+        width: 10px;
+      }
+      /* Animation */
+         .text-1 {
+        animation: text1;
+      }
+      .text-2 {
+        animation: text2;
+      }
+      .text-1,
+      .text-2,
+      #border {
+        overflow: hidden;
+        white-space: nowrap;
+        display: inline-block;
+        position: relative;
+        animation-duration: 20s;
+        animation-timing-function: steps(25, end);
+        animation-iteration-count: infinite;
+      }
+      .text-1::after,
+      .text-2::after,
+      #border::after {
+        position: absolute;
+        right: 0;
+        animation: animated-cursor 1s steps(30, end) infinite;
+        animation-duration: 1s;
+        animation-timing-function: steps(1, end);
+      }
+
+      /*text-animation*/
+      @keyframes text2 {
+        0%,
+        50%,
+        100% {
+          width: 0;
+        }
+        60%,
+        90% {
+          width: 17em;
+        }
+      }
+      @keyframes text1 {
+        0%,
+        50%,
+        100% {
+          width: 0;
+        }
+        10%,
+        40% {
+          width: 17em;
+        }
+      }
+      @keyframes animated-cursor {
+        from {
+          border-bottom-color: rgba(0, 255, 0, .75);
+        }
+        to {
+          border-bottom-color: transparent;
+        }
+      }
