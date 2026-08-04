@@ -32,7 +32,7 @@ body{
         white-space: nowrap;
         display: inline-block;
         position: relative;
-        animation-duration: 20s;
+        animation-duration: 10s;
         animation-timing-function: steps(25, end);
         animation-iteration-count: infinite;
       }
