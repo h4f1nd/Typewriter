@@ -3,20 +3,41 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Typewriter</title>
+  <title>H4F1ND // Terminal</title>
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
   <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- typewriter -->
-  <main id="main-container">
-    <div id="main">
-      <span class="text-1">Hello, my name is H4F1ND...</span>
-      <span class="text-2">I love programming...</span>
+  <div class="bg-grid"></div>
+  <div class="scanline"></div>
+
+  <main class="terminal-container">
+    <div class="terminal-window">
+      <div class="terminal-header">
+        <div class="window-buttons">
+          <span class="btn close"></span>
+          <span class="btn minimize"></span>
+          <span class="btn maximize"></span>
+        </div>
+        <div class="window-title">h4f1nd@dev-system:~</div>
+        <div class="window-status">
+          <span class="status-dot"></span> SECURE
+        </div>
+      </div>
+      <div class="terminal-body">
+        <div class="terminal-line">
+          <span class="prompt-user">h4f1nd</span><span class="prompt-at">@</span><span class="prompt-host">matrix</span><span class="prompt-path">:~$</span>
+          <div class="typewriter-box">
+            <span class="text-1">Hello, my name is H4F1ND...</span>
+            <span class="text-2">I love programming...</span>
+            <span class="text-3">Welcome to my cyberspace!</span>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
 </body>
