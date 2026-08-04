@@ -1,79 +1,82 @@
-body{
-    background: black;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-/* Type-Writer */
-      #main {
-        height: 40px;
-        white-space: nowrap;
-        overflow: hidden;
-        font-family: 'Source Code Pro', monospace;
-        font-size: 28px;
-        color: rgba(255, 255, 255, .70);
-        position: relative;
-        margin: 20% 30%;
-      }
-      #border {
-        border-bottom: solid 3px rgba(0, 255, 0, .75);
-        position: absolute;
-        right: -7px;
-        width: 10px;
-      }
-      /* Animation */
-         .text-1 {
-        animation: text1;
-      }
-      .text-2 {
-        animation: text2;
-      }
-      .text-1,
-      .text-2,
-      #border {
-        overflow: hidden;
-        white-space: nowrap;
-        display: inline-block;
-        position: relative;
-        animation-duration: 10s;
-        animation-timing-function: steps(25, end);
-        animation-iteration-count: infinite;
-      }
-      .text-1::after,
-      .text-2::after,
-      #border::after {
-        position: absolute;
-        right: 0;
-        animation: animated-cursor 1s steps(30, end) infinite;
-        animation-duration: 1s;
-        animation-timing-function: steps(1, end);
-      }
 
-      /*text-animation*/
-      @keyframes text2 {
-        0%,
-        50%,
-        100% {
-          width: 0;
-        }
-        60%,
-        90% {
-          width: 17em;
-        }
-      }
-      @keyframes text1 {
-        0%,
-        50%,
-        100% {
-          width: 0;
-        }
-        10%,
-        40% {
-          width: 17em;
-        }
-      }
-      @keyframes animated-cursor {
-        from {
-          border-bottom-color: rgba(0, 255, 0, .75);
-        }
-        to {
-          border-bottom-color: transparent;
-        }
-      }
+body {
+  background-color: #0d0d0d;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: 'Source Code Pro', monospace;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+#main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+}
+
+#main {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  font-size: clamp(1.2rem, 4.5vw, 2.2rem);
+  white-space: nowrap;
+}
+
+.text-1,
+.text-2 {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid rgba(0, 255, 0, 0.75);
+  animation-duration: 12s;
+  animation-iteration-count: infinite;
+}
+
+.text-1 {
+  animation-name: text1;
+  animation-timing-function: steps(26, end);
+}
+
+.text-2 {
+  animation-name: text2;
+  animation-timing-function: steps(21, end);
+}
+
+@keyframes text1 {
+  0% {
+    width: 0;
+    border-color: rgba(0, 255, 0, 0.75);
+  }
+  5%, 40% {
+    width: 26ch;
+    border-color: rgba(0, 255, 0, 0.75);
+  }
+  45%, 100% {
+    width: 0;
+    border-color: transparent;
+  }
+}
+
+@keyframes text2 {
+  0%, 50% {
+    width: 0;
+    border-color: transparent;
+  }
+  55%, 90% {
+    width: 21ch;
+    border-color: rgba(0, 255, 0, 0.75);
+  }
+  95%, 100% {
+    width: 0;
+    border-color: transparent;
+  }
+}
