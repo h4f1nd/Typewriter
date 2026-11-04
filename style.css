@@ -1,82 +1,389 @@
-* {
+/* ------------------------------------------------------------------
+   Typewriter — a quiet typing room
+   Palette: cream paper, iron-gall ink, ribbon red, olive accent.
+   No images, no web fonts, no network requests.
+   ------------------------------------------------------------------ */
+
+:root {
+  --paper: #f2e8d2;
+  --paper-deep: #e3d4b1;
+  --ink: #241f1a;
+  --ink-soft: #574a3c;
+  --rule: rgba(60, 48, 34, 0.16);
+  --red: #a63d2f;
+  --red-dark: #7d2b21;
+  --olive: #6c6a3c;
+  --desk-1: #3a2b20;
+  --desk-2: #191310;
+  --key-face: #e9dcc0;
+  --key-face-hi: #f7efdd;
+  --key-edge: #8b7857;
+  --line: 2rem;
+  --radius: 2px;
+  --shadow:
+    0 1px 0 rgba(255, 255, 255, 0.55) inset,
+    0 18px 40px -18px rgba(0, 0, 0, 0.8),
+    0 40px 80px -40px rgba(0, 0, 0, 0.9);
+}
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background-color: #0d0d0d;
-  color: rgba(255, 255, 255, 0.85);
-  font-family: 'Source Code Pro', monospace;
+  margin: 0;
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
+  flex-direction: column;
+  padding: clamp(0.75rem, 3vw, 2.5rem);
+  overflow-x: hidden;
+  color: var(--ink);
+  font-family: "Courier New", Courier, ui-monospace, SFMono-Regular, Menlo, monospace;
+  background-color: var(--desk-2);
+  background-image:
+    radial-gradient(120% 80% at 50% -10%, rgba(255, 219, 166, 0.16), transparent 62%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.022) 0 2px, transparent 2px 7px),
+    linear-gradient(160deg, var(--desk-1), var(--desk-2) 72%);
 }
 
-#main-container {
+/* ---------------------------------------------------------------- stage */
+
+.stage {
+  flex: 1 0 auto;
   display: flex;
-  justify-content: center;
   align-items: center;
-  width: 100%;
-  max-width: 600px;
+  justify-content: center;
 }
 
-#main {
+/* ---------------------------------------------------------------- sheet */
+
+.sheet {
   position: relative;
-  display: inline-flex;
-  align-items: center;
-  font-size: clamp(1.2rem, 4.5vw, 2.2rem);
-  white-space: nowrap;
+  width: 100%;
+  max-width: 66ch;
+  min-width: 0;
+  margin: 0;
+  padding:
+    clamp(1.15rem, 4.5vw, 2.6rem)
+    clamp(1.1rem, 5vw, 3rem)
+    clamp(1rem, 3vw, 1.6rem)
+    clamp(2.1rem, 5.5vw, 3.4rem);
+  background-color: var(--paper);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
 }
 
-.text-1,
-.text-2 {
+/* red margin rule, like a ruled writing pad */
+.sheet::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: clamp(1.15rem, 3vw, 1.85rem);
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(166, 61, 47, 0.32) 10%,
+    rgba(166, 61, 47, 0.32) 90%,
+    transparent
+  );
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------- head */
+
+.sheet-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.35rem 1rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 2px solid var(--ink);
+}
+
+.brand {
+  font-size: clamp(0.95rem, 2.4vw, 1.15rem);
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.plate {
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* ---------------------------------------------------------------- hero */
+
+.hero {
+  margin: clamp(1.1rem, 4vw, 1.8rem) 0 0;
+  font-size: clamp(1.5rem, 7vw, 3.1rem);
+  line-height: 1.12;
+  letter-spacing: 0.005em;
+  font-weight: 700;
+  min-height: 1.12em;
+  overflow-wrap: anywhere;
+}
+
+.caret {
   display: inline-block;
+  width: 0.55ch;
+  height: 1.02em;
+  margin-left: 0.12ch;
+  vertical-align: -0.12em;
+  background: var(--red);
+  animation: blink 1.05s steps(1) infinite;
+}
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.lede {
+  margin: 0.9rem 0 0;
+  max-width: 52ch;
+  color: var(--ink-soft);
+  font-size: clamp(0.95rem, 2.4vw, 1.05rem);
+  line-height: 1.65;
+}
+
+/* ---------------------------------------------------------------- pad */
+
+.pad {
+  position: relative;
+  margin-top: clamp(1.1rem, 4vw, 1.7rem);
+}
+
+/* ruled lines live on the pad, not the textarea: Chromium tiles gradients
+   painted directly on a textarea and the rules come out fragmented */
+.pad::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0 calc(var(--line) - 1px),
+    var(--rule) calc(var(--line) - 1px) var(--line)
+  );
+  pointer-events: none;
+}
+
+.paper {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: calc(var(--line) * 4);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  resize: none;
+  color: var(--ink);
+  background: transparent;
+  font: inherit;
+  font-size: clamp(1rem, 2.6vw, 1.1rem);
+  line-height: var(--line);
   overflow: hidden;
+}
+
+.paper::placeholder {
+  color: rgba(87, 74, 60, 0.8);
+  opacity: 1;
+}
+
+.paper:focus-visible {
+  outline: 2px dashed var(--red);
+  outline-offset: 6px;
+}
+
+/* ---------------------------------------------------------------- keys */
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+  margin-top: clamp(1.1rem, 4vw, 1.6rem);
+}
+
+.key {
+  appearance: none;
+  border: 1px solid var(--key-edge);
+  border-radius: 0.45rem;
+  min-height: 2.75rem;
+  padding: 0.6rem 1rem 0.7rem;
+  font: inherit;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #2b241c;
+  background: linear-gradient(180deg, var(--key-face-hi), var(--key-face));
+  box-shadow:
+    0 3px 0 var(--key-edge),
+    0 6px 10px -4px rgba(0, 0, 0, 0.45);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease,
+    background 0.12s ease;
+}
+
+.key:hover {
+  background: linear-gradient(180deg, #fdf7ea, var(--key-face));
+}
+
+.key:active {
+  transform: translateY(3px);
+  box-shadow:
+    0 0 0 var(--key-edge),
+    0 2px 4px -2px rgba(0, 0, 0, 0.35);
+}
+
+.key:focus-visible {
+  outline: 3px solid var(--red);
+  outline-offset: 3px;
+}
+
+.key[aria-pressed="true"] {
+  color: #fdf6e6;
+  border-color: var(--red-dark);
+  background: linear-gradient(180deg, #b8503f, var(--red));
+  box-shadow:
+    0 3px 0 var(--red-dark),
+    0 6px 10px -4px rgba(0, 0, 0, 0.45);
+}
+
+.meter {
+  margin: 0 0 0 auto;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------------------------- foot */
+
+.sheet-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.3rem 1rem;
+  margin-top: clamp(1rem, 3vw, 1.4rem);
+  padding-top: 0.7rem;
+  border-top: 1px dashed rgba(60, 48, 34, 0.35);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* ---------------------------------------------------------------- utils */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
   white-space: nowrap;
-  border-right: 3px solid rgba(0, 255, 0, 0.75);
-  animation-duration: 12s;
-  animation-iteration-count: infinite;
+  border: 0;
 }
 
-.text-1 {
-  animation-name: text1;
-  animation-timing-function: steps(26, end);
+.skip {
+  position: absolute;
+  top: 0.75rem;
+  left: -9999px;
+  z-index: 10;
+  padding: 0.6rem 1rem;
+  color: var(--ink);
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  font-size: 0.8rem;
+  text-decoration: none;
 }
 
-.text-2 {
-  animation-name: text2;
-  animation-timing-function: steps(21, end);
+.skip:focus {
+  left: 0.75rem;
 }
 
-@keyframes text1 {
-  0% {
-    width: 0;
-    border-color: rgba(0, 255, 0, 0.75);
+/* ---------------------------------------------------------------- small */
+
+@media (max-width: 30rem) {
+  .sheet {
+    padding-left: clamp(1.1rem, 5vw, 2rem);
   }
-  5%, 40% {
-    width: 26ch;
-    border-color: rgba(0, 255, 0, 0.75);
+
+  .sheet::before {
+    display: none;
   }
-  45%, 100% {
-    width: 0;
-    border-color: transparent;
+
+  .meter {
+    width: 100%;
+    margin-left: 0;
+    text-align: right;
   }
 }
 
-@keyframes text2 {
-  0%, 50% {
-    width: 0;
-    border-color: transparent;
+/* ---------------------------------------------------------------- print */
+
+@media print {
+  body {
+    display: block;
+    padding: 0;
+    background: #fff;
   }
-  55%, 90% {
-    width: 21ch;
-    border-color: rgba(0, 255, 0, 0.75);
+
+  .sheet {
+    width: 100%;
+    max-width: none;
+    box-shadow: none;
+    background-image: none;
   }
-  95%, 100% {
-    width: 0;
-    border-color: transparent;
+
+  .controls,
+  .sheet-foot,
+  .skip,
+  .caret {
+    display: none;
+  }
+}
+
+/* ---------------------------------------------------------------- a11y */
+
+@media (prefers-reduced-motion: reduce) {
+  .caret {
+    animation: none;
+    opacity: 1;
+  }
+
+  .key {
+    transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .sheet {
+    border: 1px solid CanvasText;
+  }
+
+  .key {
+    border: 1px solid ButtonText;
   }
 }
